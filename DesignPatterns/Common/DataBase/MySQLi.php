@@ -23,9 +23,12 @@ class MySQLi implements IDataBase
     {
         $res = mysqli_query($this->conn,$sql);
         return $res;
+//        return mysqli_fetch_all($res,MYSQLI_ASSOC);
     }
+
     function close()
     {
         mysqli_close($this->conn);
     }
+
 }
