@@ -143,6 +143,53 @@ echo "<br/><br/>原型模式<br/>";
 //1.与工厂模式作用类似，都是用来创建对象
 //2.与工厂模式的实现不同，原型模式是先创建好一个原型对象，然后通过clone原型对象来创建新的对象。这样就免去了类创建时重复的初始化操作
 //3.原型模式适用于大对象的创建。创建一个大对象需要很大的开销，如果每次new就会消耗很大，原型模式仅需内存拷贝即可
+$prototype = new Common\Canvas();
+$prototype->init();
+
+//原始$cancas0
+//$cancas1 = new Common\Canvas();
+//$cancas1->init();
+//$cancas1->rect(3,6,4,12);
+//$cancas1->draw();
+
+/*
+ * clone节省了第二次 第三次...重复初始化的繁琐工作 clone 后是一个新的对象
+ * $canvas0 = clone $prototype;
+$canvas0->rect(3,6,4,12);
+$canvas0->draw();
+echo "=============<br/>\n";
+$canvas1 = clone $prototype;
+$canvas1->rect(1,3,2,16);
+$canvas1->draw();
+*/
+
+echo "<br/><br/>装饰器模式 Decorator<br/>";
+
+//=== 装饰器模式（Decorator）
+//1.可以动态地添加修改类的功能
+//2.一个类提供了一项功能，如果要在修改并添加额外的功能，传统的编程模式，需要写一个子类继承它，并重新实现类的方法
+//3.使用装饰器模式，仅需在运行是添加一个装饰器对象即可实现，可以实现最大的灵活性
+
+$cancas = new Common\Canvas();
+$cancas->init();
+//使用装饰器代替继承 重写
+$cancas->addDecorator(new Common\ColorDecorator('green'));
+$cancas->addDecorator(new Common\SizeDrawDecorator('10px'));
+$cancas->rect(3,6,4,12);
+$cancas->draw();
+//假如要修改draw() 功能 传统的是重新写一个类去继承父类的 重写这个draw()方法
+
+echo "<br/><br/>迭代器模式 <br/>";
+
+//=== 迭代器模式（）
+//1.在不需要了解内部实现的前提下，遍历一个聚合对象的内部元素
+//2.相比于传统的编程模式，迭代器模式可以隐藏遍历元素的所需的操作
+
+$users = new \Common\AllUser();
+
+
+
+
 
 
 
