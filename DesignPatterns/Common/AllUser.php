@@ -8,9 +8,9 @@
 
 namespace Common;
 
-//遍历整个数据库表，拿到所有的对象
+// 遍历整个数据库表，拿到所有的对象
 // 传统中要拿到所有的user 进行foreach逐条、个拿到数据
-//迭代器模式 可以把整个对数据库的操作都隐藏带一个类中
+// 迭代器模式 可以把整个对数据库的操作都隐藏带一个类中
 class AllUser implements \Iterator
 {
     protected $ids;
@@ -19,8 +19,8 @@ class AllUser implements \Iterator
 
     function __construct()
     {
-//        $db = Factory::getDataBase();
-        $db = Database::getInstance();
+        $db = Factory::getDataBase();
+//        $db = Database::getInstance();
         $result = $db->query("select id from users");
         $this->ids = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -35,6 +35,9 @@ class AllUser implements \Iterator
      */
     public function current()
     {
+        $id = $this->ids[$this->index]['id'];
+        return  Factory::getUser($id);
+
         // TODO: Implement current() method.
     }
 
@@ -46,6 +49,7 @@ class AllUser implements \Iterator
      */
     public function next()
     {
+        $this->index++;
         // TODO: Implement next() method.
     }
 
@@ -58,6 +62,7 @@ class AllUser implements \Iterator
      */
     public function key()
     {
+        return $this->index;
         // TODO: Implement key() method.
     }
 
@@ -71,6 +76,7 @@ class AllUser implements \Iterator
      */
     public function valid()
     {
+        return $this->index < count($this->ids);
         // TODO: Implement valid() method.
     }
 
@@ -83,6 +89,7 @@ class AllUser implements \Iterator
      */
     public function rewind()
     {
+        $this->index = 0;
         // TODO: Implement rewind() method.
     }
 }

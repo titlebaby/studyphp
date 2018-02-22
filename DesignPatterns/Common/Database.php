@@ -18,6 +18,7 @@ class Database
 {
     //必须是保护或私有
     protected static $db;
+    protected static $conn;
     private function __construct()
     {
     }
@@ -28,6 +29,19 @@ class Database
             self::$db =new self();
             return self::$db;
         }
+    }
+
+    static function connect(){
+        $conn = mysqli_connect('127.0.0.1', 'root', '', 'test_demo');
+        self::$conn = $conn;
+        return self::$conn;
+    }
+
+    static function query($sql)
+    {
+        $res = mysqli_query(self::$conn,$sql);
+        return $res;
+//        return mysqli_fetch_all($res,MYSQLI_ASSOC);
     }
 
     function  where($where){
