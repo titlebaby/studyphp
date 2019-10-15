@@ -92,15 +92,15 @@ Class SingleLinkList
         $fm = $n;
         $tmp   = 1;
         $count = 0;//记录已经插入的数量
-        $big   = $list->next;//标注大猴
         while ($list->next != null) {
 
             if ($count == $n) {
                 //标注小猴
-                $small = $list;
+                $small = $list->data;
                 break;
             }
             if ($tmp == $m) {//第m个
+               // var_dump($list->data);
                 $fm += 1;
                // $tmpVal        = $list->data;
                 $newNode       = new Node("F".$fm, null);
@@ -109,28 +109,20 @@ Class SingleLinkList
                 $list->next    = $newNode;
                 $tmp           = 1;
                 $count++;
-                var_dump("COUNT=".$count);
-                //$list = $list->next;
-               // var_dump($list->data);die();
+                //var_dump("COUNT=".$count);
+                $list = $list->next;
+               // if($count==2) {
+                   // var_dump($list->data);
+               // }
                 continue;
+                var_dump(123);
             }
+
             $list = $list->next;
             $tmp++;
-           // var_dump("tmp=".$tmp);
         }
+        return [$list,$small];
 
-        $e = 1;
-        while ($list->next != null) {
-
-            //var_dump($e);
-            var_dump("------------".$list->data);
-            if ($e > 7) {
-                break;
-            }
-            $list = $list->next;
-            $e++;
-        }
-        die();
         var_dump($small);
         $distance = 0;
         while ($small && $small->next) {
@@ -147,22 +139,36 @@ Class SingleLinkList
 
     }
 
+    function findShortest($list,$big,$small,$total){
+        //从找到大猴开始计数，知道找到小猴，然后再换城最小位置
+        $n = false;
+        while ($list->next != null ){
+            if($list->data == $big) {
+                $n=1;
+                $list = $list->next;
+                continue;
+            }
+            if ($n !== false) {
+                $n++;
+            }
+            if($n>1 && $list->data == $small) {
+                break;
+            }
+            $list = $list->next;
+        }
+        if(($n-2) < ($total-2)/2){
+            return $n-2;
+        } else {
+            return $total-$n;
+        }
+
+    }
+
 }
 
 $link = new SingleLinkList();
 $list = $link->createRing(5);
-//$e    = 1;
-//while ($list->next != null) {
-//
-//    //var_dump($e);
-//    var_dump($list->data);
-//    if ($e > 7) {
-//        break;
-//    }
-//    $list = $list->next;
-//    $e++;
-//}
-//die();
-$res = $link->setOne($list, 2, 5);
-
-var_dump($res);
+$big = $list->data;
+list($list,$small) = $link->setOne($list, 3, 5);
+$n = $link->findShortest($list,$big,$small, 5*2);
+var_dump($n);

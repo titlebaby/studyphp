@@ -77,6 +77,7 @@ function showList($list, $length) {
 $n = 5;
 $m = 3;
 $ring = createRing($n);
+var_dump($ring);die();
 // showList($ring);
 $i = 1;
 $node = $ring;
