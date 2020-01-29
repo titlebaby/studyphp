@@ -1,2 +1,4 @@
-fuel/app/logs/*/*/*
+fuel/app/logs/*/*/*git rm --cached --force -r .idea
 fuel/app/cache/*/*
+replication/vendor/
+.idea/

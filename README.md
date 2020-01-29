@@ -5,3 +5,7 @@
 ### 注册树模式
 ### 设配器模式
 详情index.php 理解与实践相结合
+#目录说明
+
+## replication —— redis读写分离
+## TheList——链表
